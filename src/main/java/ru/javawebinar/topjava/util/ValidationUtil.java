@@ -40,4 +40,8 @@ public class ValidationUtil {
             throw new IllegalArgumentException(entity + " must be with id=" + id);
         }
     }
+
+    public static <T> T checkNotFoundWithIdOrUnknownUser(T object, int id, int userId) {
+        return checkNotFoundWithId(object, id);
+    }
 }

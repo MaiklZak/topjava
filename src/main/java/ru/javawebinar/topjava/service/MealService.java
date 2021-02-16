@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.util.ValidationUtil;
 
 import java.util.Collection;
 
@@ -21,15 +22,15 @@ public class MealService {
     }
 
     public Meal get(int userId, int id) {
-        return repository.get(userId, id);
+        return ValidationUtil.checkNotFoundWithIdOrUnknownUser(repository.get(userId, id), id, userId);
     }
 
     public void delete(int userId, int id) {
-        repository.delete(userId, id);
+        ValidationUtil.checkNotFoundWithIdOrUnknownUser(repository.delete(userId, id), id, userId);
     }
 
     public void update(Meal meal) {
-        repository.save(meal);
+        ValidationUtil.checkNotFoundWithId(repository.save(meal), meal.getId());
     }
 
     public Collection<Meal> getAll() {

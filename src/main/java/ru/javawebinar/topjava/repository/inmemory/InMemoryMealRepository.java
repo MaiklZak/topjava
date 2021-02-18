@@ -7,14 +7,14 @@ import org.springframework.util.CollectionUtils;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
+import ru.javawebinar.topjava.util.Util;
 
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Repository
@@ -61,11 +61,21 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public Collection<Meal> getAll(int userId) {
         log.info("getAll");
+        return filterByPredicate(userId, meal -> true);
+    }
+
+    @Override
+    public List<Meal> getBetweenHalfOpen(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
+        return filterByPredicate(userId, meal -> Util.isBetweenHalfOpen(meal.getDateTime(), startDateTime, endDateTime));
+    }
+
+    private List<Meal> filterByPredicate(int userId, Predicate<Meal> filter) {
         Map<Integer, Meal> meals = usersMealsMap.get(userId);
         return CollectionUtils.isEmpty(meals) ? Collections.emptyList() :
                 meals.values().stream()
-                .sorted((m1, m2) -> m2.getDate().compareTo(m1.getDate()))
-                .collect(Collectors.toList());
+                        .filter(filter)
+                        .sorted(Comparator.comparing(Meal::getDateTime).reversed())
+                        .collect(Collectors.toList());
     }
 }
 

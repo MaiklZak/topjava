@@ -16,9 +16,9 @@ public class MealRestController {
     @Autowired
     private MealService service;
 
-    public Meal create(Meal meal) {
+    public Meal create(int userId, Meal meal) {
         log.info("create {}", meal);
-        return service.create(meal);
+        return service.create(userId, meal);
     }
 
     public Meal get(int userId, int id) {
@@ -31,13 +31,13 @@ public class MealRestController {
         service.delete(userId, id);
     }
 
-    public void update(Meal meal) {
+    public void update(int userId, Meal meal) {
         log.info("update {}", meal);
-        service.update(meal);
+        service.update(userId, meal);
     }
 
-    public Collection<Meal> getAll() {
+    public Collection<Meal> getAll(int userId) {
         log.info("getAll");
-        return service.getAll();
+        return service.getAll(userId);
     }
 }

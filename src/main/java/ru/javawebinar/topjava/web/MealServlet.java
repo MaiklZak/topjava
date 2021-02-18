@@ -40,10 +40,10 @@ public class MealServlet extends HttpServlet {
 
         if (meal.isNew()) {
             log.info("Create {}", meal);
-            mealRestController.create(meal);
+            mealRestController.create(SecurityUtil.authUserId(), meal);
         } else {
             log.info("Update {}", meal);
-            mealRestController.update(meal);
+            mealRestController.update(SecurityUtil.authUserId(), meal);
         }
         response.sendRedirect("meals");
     }
@@ -70,8 +70,9 @@ public class MealServlet extends HttpServlet {
             case "all":
             default:
                 log.info("getAll");
+
                 request.setAttribute("meals",
-                        MealsUtil.getTos(mealRestController.getAll(), MealsUtil.DEFAULT_CALORIES_PER_DAY));
+                        MealsUtil.getTos(mealRestController.getAll(SecurityUtil.authUserId()), MealsUtil.DEFAULT_CALORIES_PER_DAY));
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
         }

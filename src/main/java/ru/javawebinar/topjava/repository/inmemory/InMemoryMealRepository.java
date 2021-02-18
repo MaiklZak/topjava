@@ -26,9 +26,9 @@ public class InMemoryMealRepository implements MealRepository {
     {
         MealsUtil.meals.forEach(meal -> save(InMemoryUserRepository.USER_ID, meal));
         save(InMemoryUserRepository.ADMIN_ID, new Meal(LocalDateTime.of(2020, Month.JUNE, 1, 14, 0),
-                "Админ ланч", 5100, InMemoryUserRepository.ADMIN_ID));
+                "Админ ланч", 5100));
         save(InMemoryUserRepository.ADMIN_ID, new Meal(LocalDateTime.of(2020, Month.JUNE, 1, 21, 0),
-                "Админ ужин", 1500, InMemoryUserRepository.ADMIN_ID));
+                "Админ ужин", 1500));
     }
 
     @Override
@@ -47,7 +47,8 @@ public class InMemoryMealRepository implements MealRepository {
     @Override
     public boolean delete(int userId, int id) {
         log.info("delete {} for user{}", id, userId);
-        return usersMealsMap.remove(id) != null;
+        Map<Integer, Meal> meals = usersMealsMap.get(userId);
+        return meals != null && meals.remove(id) != null;
     }
 
     @Override

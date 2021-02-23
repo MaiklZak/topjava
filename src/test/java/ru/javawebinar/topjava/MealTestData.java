@@ -9,7 +9,7 @@ import java.util.List;
 
 public class MealTestData {
 
-    public static final Meal meal = new Meal(100002, LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Breakfast", 500);
+    public static final Meal mealCheck = new Meal(100002, LocalDateTime.of(2020, Month.JANUARY, 30, 10, 0), "Breakfast", 500);
     public static final Meal meal1 = new Meal(100003, LocalDateTime.of(2020, Month.JANUARY, 30, 13, 0), "Lunch", 1000);
     public static final Meal meal2 = new Meal(100004, LocalDateTime.of(2020, Month.JANUARY, 30, 19, 0), "Dinner", 850);
     public static final Meal meal3 = new Meal(100005, LocalDateTime.of(2020, Month.JANUARY, 31, 10, 30), "Breakfast", 700);
@@ -26,21 +26,21 @@ public class MealTestData {
 
 
     static {
-        listMeals.add(meal);
+        listMeals.add(mealCheck);
         listMeals.add(meal1);
         listMeals.add(meal2);
         listMeals.add(meal3);
         listMeals.add(meal4);
         listMeals.add(meal5);
 
-        listMealsAll.add(meal);
+        listMealsAll.add(mealCheck);
         listMealsAll.add(meal1);
         listMealsAll.add(meal2);
         listMealsAll.add(meal3);
         listMealsAll.sort((m1, m2) -> m2.getDateTime().compareTo(m1.getDateTime()));
 
 
-        listMealsBetween.add(meal);
+        listMealsBetween.add(mealCheck);
         listMealsBetween.add(meal1);
         listMealsBetween.add(meal2);
         listMealsBetween.sort((m1, m2) -> m2.getDateTime().compareTo(m1.getDateTime()));

@@ -39,14 +39,14 @@ public class MealServiceTest {
 
     @Test
     public void get() {
-        Meal mealGet = service.get(meal.getId(), UserTestData.USER_ID);
-        assertThat(mealGet).usingRecursiveComparison().ignoringFields("dateTime").isEqualTo(meal);
+        Meal mealGet = service.get(mealCheck.getId(), UserTestData.USER_ID);
+        assertThat(mealGet).usingRecursiveComparison().ignoringFields("dateTime").isEqualTo(mealCheck);
     }
 
     @Test
     public void delete() {
-        service.delete(meal.getId(), UserTestData.USER_ID);
-        assertThrows(NotFoundException.class, () -> service.get(meal.getId(), UserTestData.USER_ID));
+        service.delete(mealCheck.getId(), UserTestData.USER_ID);
+        assertThrows(NotFoundException.class, () -> service.get(mealCheck.getId(), UserTestData.USER_ID));
     }
 
     @Test
@@ -59,6 +59,8 @@ public class MealServiceTest {
     @Test
     public void getAll() {
         List<Meal> actualList = service.getAll(UserTestData.USER_ID);
+        System.out.println(actualList);
+        System.out.println(listMealsAll);
         assertThat(actualList).usingRecursiveComparison().ignoringFields("dateTime").isEqualTo(listMealsAll);
     }
 
@@ -80,12 +82,12 @@ public class MealServiceTest {
 
     @Test
     public void deleteNotFound() {
-        assertThrows(NotFoundException.class, () -> service.get(meal.getId(), UserTestData.NOT_FOUND));
+        assertThrows(NotFoundException.class, () -> service.get(mealCheck.getId(), UserTestData.NOT_FOUND));
     }
 
     @Test
     public void getNotFound() {
-        assertThrows(NotFoundException.class, () -> service.get(meal.getId(), UserTestData.NOT_FOUND));
+        assertThrows(NotFoundException.class, () -> service.get(mealCheck.getId(), UserTestData.NOT_FOUND));
     }
 
     @Test

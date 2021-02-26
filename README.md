@@ -1,4 +1,5 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/56dcef40928a450c88758a7841f042ac)](https://www.codacy.com/gh/MaiklZak/topjava/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MaiklZak/topjava&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.com/MaiklZak/topjava.svg?branch=master)](https://travis-ci.com/MaiklZak/topjava)
 
 Java Enterprise Online Project 
 ===============================

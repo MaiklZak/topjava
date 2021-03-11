@@ -22,7 +22,7 @@ public class DataJpaMealRepository implements MealRepository {
     @Transactional
     @Override
     public Meal save(Meal meal, int userId) {
-        if (!meal.isNew() && crudMealRepository.findById(meal.id(), userId) == null) {
+        if (!meal.isNew() && get(meal.id(), userId) == null) {
             return null;
         }
         meal.setUser(crudUserRepository.getOne(userId));
@@ -36,7 +36,9 @@ public class DataJpaMealRepository implements MealRepository {
 
     @Override
     public Meal get(int id, int userId) {
-        return crudMealRepository.findById(id, userId);
+        return crudMealRepository.findById(id)
+                .filter(meal -> meal.getUser().getId() == userId)
+                .orElse(null);
     }
 
     @Override
